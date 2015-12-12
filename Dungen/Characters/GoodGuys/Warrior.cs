@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OopProject.Characters.GoodGuys
 {
-    class Warrior : DrawCharacter
+    class Warrior : GoodGuys
     {
         private const int Health = 200;
         private const int Mana = 200;

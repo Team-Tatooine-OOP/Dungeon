@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Dungen.Characters.GoodGuys;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OopProject.Characters.GoodGuys;
 using OopProject.Characters.Villians;
 using IDrawable = OopProject.Interfaces.IDrawable;
 
-namespace OopProject
+namespace Dungen
 {
     public class Game1 : Game
     {
@@ -48,8 +47,8 @@ namespace OopProject
                  || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             myMage.LoadContent(Content);
-            timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             myMage.Update(gameTime);
+            timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             base.Update(gameTime);
         }
 

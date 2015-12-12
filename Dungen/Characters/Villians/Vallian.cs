@@ -42,6 +42,27 @@ namespace OopProject.Characters.Villians
             return new Vector2(x, y);
         }
 
+
+        public override void UnloadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
+        }
+
         public static Vector2 Move(Vector2 vector) // moving  second in this direction (x or y)
         {
             float x = vector.X;
@@ -65,14 +86,5 @@ namespace OopProject.Characters.Villians
             return new Vector2(x, y);
         }
 
-        public override void UnloadContent()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void LoadContent(ContentManager content)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
