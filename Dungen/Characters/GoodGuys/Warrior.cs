@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace OopProject.Characters.GoodGuys
+﻿namespace Dungen.Characters.GoodGuys
 {
+    using System;
+
+    using Microsoft.Xna.Framework.Content;
+
     class Warrior : GoodGuys
     {
         private const int Health = 200;
@@ -14,7 +14,6 @@ namespace OopProject.Characters.GoodGuys
         public Warrior(string name)
                : base(name)
         {
-
         }
 
         public override void UnloadContent()

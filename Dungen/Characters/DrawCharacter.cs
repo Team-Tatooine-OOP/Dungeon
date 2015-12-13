@@ -1,24 +1,27 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Input;
-using OopProject;
-
-using IDrawable = OopProject.Interfaces.IDrawable;
-
-namespace OopProject.Characters
+﻿namespace Dungen.Characters
 {
+    using System;
+
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
+    using IDrawable = OopProject.Interfaces.IDrawable;
+
     public abstract class DrawCharacter : IDrawable
     {
         private string name;
 
+        protected DrawCharacter(string name)
+        {
+            this.name = name;
+        }
 
         public string Name
         {
             get
             {
-                return name;
+                return this.name;
             }
 
             set
@@ -27,16 +30,12 @@ namespace OopProject.Characters
                 {
                     throw new ArgumentNullException("Name is empty");
                 }
-                name = value;
+
+                this.name = value;
             }
         }
 
         public abstract void UnloadContent();
-
-        protected DrawCharacter(string name)
-        {
-            this.name = name;
-        }
 
         public abstract void LoadContent(ContentManager content);
 

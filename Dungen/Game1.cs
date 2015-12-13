@@ -2,11 +2,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OopProject.Characters.Villians;
+
 using IDrawable = OopProject.Interfaces.IDrawable;
 
 namespace Dungen
 {
+    using Dungen.Characters.Villians;
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;

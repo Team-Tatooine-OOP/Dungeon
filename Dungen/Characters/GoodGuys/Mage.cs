@@ -1,10 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Dungen.Characters.GoodGuys
+﻿namespace Dungen.Characters.GoodGuys
 {
-    public class Mage : OopProject.Characters.GoodGuys.GoodGuys
+    using System;
+
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
+    public class Mage : GoodGuys
     {
         private const int Health = 100;
         private const int Mana = 300;
@@ -12,7 +13,6 @@ namespace Dungen.Characters.GoodGuys
         public Mage(string name)
             : base(name)
         {
-
         }
 
         public override void UnloadContent()
