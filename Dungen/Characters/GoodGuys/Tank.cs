@@ -14,11 +14,6 @@ namespace OopProject.Characters.GoodGuys
 
         }
 
-        public override void UnloadContent()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void LoadContent(ContentManager content)
         {
             throw new NotImplementedException();
