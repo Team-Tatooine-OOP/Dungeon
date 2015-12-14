@@ -45,8 +45,12 @@
     <Compile Include="Characters\GoodGuys\Warrior.cs" />
     <Compile Include="Characters\Villians\Vallian.cs" />
     <Compile Include="Game1.cs" />
+<<<<<<< HEAD
     <Compile Include="Interfaces\ICharacter.cs" />
     <Compile Include="Interfaces\IDrawMagic.cs" />
+=======
+    <Compile Include="Interfaces\IDrawable.cs" />
+>>>>>>> origin/master
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Magic\DrawMagic.cs" />
     <Compile Include="Magic\MageMagic.cs" />

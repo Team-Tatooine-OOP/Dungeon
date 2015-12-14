@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using Dungen.Characters.GoodGuys;
@@ -7,9 +8,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OopProject.Characters.GoodGuys;
+=======
+﻿using Dungen.Characters.GoodGuys;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+using IDrawable = OopProject.Interfaces.IDrawable;
+>>>>>>> origin/master
 
 namespace Dungen
 {
+    using Dungen.Characters.Villians;
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -53,6 +64,7 @@ namespace Dungen
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                  || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+<<<<<<< HEAD
             myMage.Update(gameTime);
             KeyboardState fireState = Keyboard.GetState();
 
@@ -68,6 +80,11 @@ namespace Dungen
             }
             mprevious = fireState;
 
+=======
+            myMage.LoadContent(Content);
+            myMage.Update(gameTime);
+            timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
+>>>>>>> origin/master
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
