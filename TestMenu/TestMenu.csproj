@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A60C96AE-D8DF-4E97-B207-C904FF7BC415}</ProjectGuid>
+    <ProjectGuid>{27A36F71-9B0F-441E-AA8E-C3D3D1C440E8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dungen</RootNamespace>
-    <AssemblyName>Dungen</AssemblyName>
+    <RootNamespace>TestMenu</RootNamespace>
+    <AssemblyName>TestMenu</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>
@@ -38,19 +38,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Characters\DrawCharacter.cs" />
-    <Compile Include="Characters\GoodGuys\GoodGuys.cs" />
-    <Compile Include="Characters\GoodGuys\Mage.cs" />
-    <Compile Include="Characters\GoodGuys\Tank.cs" />
-    <Compile Include="Characters\GoodGuys\Warrior.cs" />
-    <Compile Include="Characters\Villians\Vallian.cs" />
-    <Compile Include="Enumerations\MenuOptions.cs" />
+    <Compile Include="cButton.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Interfaces\IDrawable.cs" />
-    <Compile Include="Interfaces\IMovable.cs" />
-    <Compile Include="Magic\DrawMagic.cs" />
-    <Compile Include="Magic\MageMagic.cs" />
-    <Compile Include="Menu\MenuComponent.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,23 +52,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\alienmetal.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\button.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\menufont.jpg" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\bin\" />
-    <Folder Include="Content\obj\" />
-    <Folder Include="Content\TextureAtlases\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\Font\Sprite.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\Font\font.spritefont">
+    <Content Include="Content\font.spritefont">
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

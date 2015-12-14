@@ -1,4 +1,5 @@
 ﻿using Dungen.Characters.GoodGuys;
+using Dungen.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +12,8 @@ namespace Dungen
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private MenuComponent menuComponent;
+        private SpriteFont font;
         private Texture2D bot;
         private Texture2D villian; // Initialize field for villian image
         private Texture2D warrior; // Initialize field for warrior image
@@ -18,7 +21,7 @@ namespace Dungen
         private IDrawable myMage;
         private Vallian[] vallians = new Vallian[3]; //init 3 vallians
         private float timeSinceLastChange = 0f; //for counting the seconds
-
+        private Texture2D menuBackground;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,9 +30,16 @@ namespace Dungen
 
         protected override void LoadContent()
         {
+            string[] menuItems = { "Start Game", "High Scores", "End Game" };
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("Font/font");
+            menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
+            Components.Add(menuComponent);
             myMage = new Mage("Misho");
             myMage.LoadContent(Content);
             background = Content.Load<Texture2D>("TextureAtlases/amarati");
+            menuBackground = Content.Load<Texture2D>("TextureAtlases/MenuBackground");
             vallians[0] = new Vallian("First", villian, 50, 50);
             vallians[1] = new Vallian("Second", villian, 150, 50);
             vallians[2] = new Vallian("Thirt", villian, 250, 50);
@@ -55,8 +65,11 @@ namespace Dungen
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
-            myMage.Draw(spriteBatch);
+            if (menuComponent.IsPlayed == true)
+            {
+                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
+                myMage.Draw(spriteBatch);
+            }
             base.Draw(gameTime);
             spriteBatch.End();
         }
