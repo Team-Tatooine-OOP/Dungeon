@@ -20,13 +20,19 @@ namespace OopProject.Characters.Villians
         public int Health { get; set; }
         public int Mana { get; set; }
 
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        private int speed = 3;
+
         public Texture2D Texture { get; set; }//
         protected BadGuys(string name)
             : base(name)
         {
         }
 
-        
+
 
         public int Rows
         {
@@ -41,9 +47,33 @@ namespace OopProject.Characters.Villians
         }
         public override void Update(GameTime gameTime)
         {
-            //Moving();
+            MonsterMove();
         }
 
+
+        int direction = 0; //direction of moving +1 right, -1 left, 0 hold
+        public void MonsterMove()
+        {
+            if (X <= 600 && this.direction >= 0)
+            {
+                X += speed;
+                direction = 1;
+            }
+
+            if (X == 600)
+            {
+                direction = -1;
+            }
+
+            if (direction == -1)
+            {
+                X -= speed;
+            }
+            if (X == 0)
+            {
+                direction = +1;
+            }
+        }
 
         //  public void Moving()
         //  {
@@ -68,14 +98,14 @@ namespace OopProject.Characters.Villians
 
         //   public abstract void Attack(MageMagic magic);
 
-      //public AnimatedSprite(Texture2D texture, int rows, int columns)
-      //{
-      //    Texture = texture;
-      //    Rows = rows;
-      //    Columns = columns;
-      //    currentFrame = 0;
-      //    totalFrames = Rows * Columns;
-      //}
+        //public AnimatedSprite(Texture2D texture, int rows, int columns)
+        //{
+        //    Texture = texture;
+        //    Rows = rows;
+        //    Columns = columns;
+        //    currentFrame = 0;
+        //    totalFrames = Rows * Columns;
+        //}
 
         public override void Draw(SpriteBatch spriteBatch)
         {

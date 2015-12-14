@@ -43,6 +43,9 @@
     <Compile Include="Characters\GoodGuys\Mage.cs" />
     <Compile Include="Characters\GoodGuys\Tank.cs" />
     <Compile Include="Characters\GoodGuys\Warrior.cs" />
+    <Compile Include="Characters\Villians\AnimatedSprite.cs" />
+    <Compile Include="Characters\Villians\BadGuys.cs" />
+    <Compile Include="Characters\Villians\Monster1.cs" />
     <Compile Include="Characters\Villians\Vallians.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Characters\Villians\Vallian.cs" />
