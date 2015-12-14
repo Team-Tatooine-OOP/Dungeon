@@ -15,16 +15,19 @@ namespace Dungen.Magic
         private int x;
         private int y;
         private int currentFrame;
+        protected string StatePosition;
 
 
         protected DrawMagic()
         {
         }
 
-        protected DrawMagic(int x, int y)
+        protected DrawMagic(int x, int y, string statePosition)
         {
             this.X = x;
             this.Y = y;
+            this.StatePosition = statePosition;
+
         }
 
         public int X
@@ -48,8 +51,34 @@ namespace Dungen.Magic
 
         public abstract void LoadContent(ContentManager content);
 
-        public abstract void Update(GameTime gametime);
+        public virtual void Update(GameTime gametime)
+        {
+            SwitchState(this.StatePosition);
+        }
 
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        protected void SwitchState(string state)
+        {
+
+            if (state == "Down")
+            {
+                this.Y -= 5;
+
+            }
+            else if (state == "Up")
+            {
+                Y += 5;
+            }
+            else if (state == "Right")
+            {
+                X += 5;
+            }
+            else if (state == "Left")
+            {
+                X -= 5;
+            }
+
+        }
     }
 }

@@ -10,7 +10,7 @@ using OopProject.Characters.GoodGuys;
 
 namespace Dungen
 {
-    public class Game1 : Game
+    public class GameEngine : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -21,9 +21,10 @@ namespace Dungen
         private DrawMagic myMagic;
         private float timeSinceLastChange = 0f; //for counting the seconds
         private KeyboardState mprevious;
-        private int counter = 1;
+        private float lastX;
+        private float lastY;
 
-        public Game1()
+        public GameEngine()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -53,43 +54,67 @@ namespace Dungen
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                  || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            lastX = myMage.movingVector2.X;
+            lastY = myMage.movingVector2.Y;
             myMage.Update(gameTime);
-            KeyboardState fireState = Keyboard.GetState();
-
-            foreach (var drawMagic in magics)
-            {
-                drawMagic.Update(gameTime);
-            }
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
-            if (fireState.IsKeyDown(Keys.Space) && mprevious.IsKeyDown(Keys.Space) == false)
-            {
-                myMagic = new MageMagic((int)myMage.movingVector2.X, (int)myMage.movingVector2.Y, magicType);
-                magics.Add(myMagic);
-            }
-            mprevious = fireState;
-
+            string lastState = CharacterState(myMage.movingVector2.X, myMage.movingVector2.Y);
+            UpdateBullet(gameTime, lastState);
             base.Update(gameTime);
         }
+
+
+
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
-            if (magics.Count > 0)
+
+            foreach (var drawMagic in magics)
             {
-                for (int i = 0; i < counter; i++)
-                {
-
-                    magics[i].Draw(spriteBatch);
-
-                }
-                counter++;
-                counter = Math.Min(counter, magics.Count);
+                drawMagic.Draw(spriteBatch);
             }
+
 
             myMage.Draw(spriteBatch);
             base.Draw(gameTime);
             spriteBatch.End();
         }
 
+        private string CharacterState(float x, float y)
+        {
+            if (x != lastX)
+            {
+                if (x > lastX)
+                {
+                    return "Right";
+                }
+                return "Left";
+            }
+            if (y != lastY)
+            {
+                if (y > lastY)
+                {
+                    return "Up";
+                }
+            }
+            return "Down";
+
+        }
+
+        public void UpdateBullet(GameTime gameTime, string state)
+        {
+            KeyboardState fireState = Keyboard.GetState();
+            foreach (var drawMagic in magics)
+            {
+                drawMagic.Update(gameTime);
+            }
+            if (fireState.IsKeyDown(Keys.Space) && mprevious.IsKeyDown(Keys.Space) == false)
+            {
+                myMagic = new MageMagic((int)myMage.movingVector2.X, (int)myMage.movingVector2.Y, magicType, state);
+                magics.Add(myMagic);
+            }
+            mprevious = fireState;
+        }
     }
 }
