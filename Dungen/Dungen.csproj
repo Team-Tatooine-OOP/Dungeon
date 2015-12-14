@@ -43,9 +43,10 @@
     <Compile Include="Characters\GoodGuys\Mage.cs" />
     <Compile Include="Characters\GoodGuys\Tank.cs" />
     <Compile Include="Characters\GoodGuys\Warrior.cs" />
+    <Compile Include="Characters\Villians\Vallians.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Characters\Villians\Vallian.cs" />
     <Compile Include="Enumerations\MenuOptions.cs" />
-    <Compile Include="Game1.cs" />
     <Compile Include="Interfaces\ICharacter.cs" />
     <Compile Include="Interfaces\IDrawMagic.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
