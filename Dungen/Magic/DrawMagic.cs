@@ -16,6 +16,8 @@ namespace Dungen.Magic
         private int y;
         private int currentFrame;
         protected string StatePosition;
+        protected int column;// = 3;
+        protected int row;// = 2;
 
 
         protected DrawMagic()
@@ -64,19 +66,25 @@ namespace Dungen.Magic
             if (state == "Down")
             {
                 this.Y -= 5;
-
+                column = 2;
+                row = 3;
             }
             else if (state == "Up")
             {
                 this.Y += 5;
+                
             }
             else if (state == "Right")
             {
                 this.X += 5;
+                column = 2;
+                row = 2;
             }
             else if (state == "Left")
             {
                 this.X -= 5;
+                column = 1;
+                row = 1;
             }
 
         }

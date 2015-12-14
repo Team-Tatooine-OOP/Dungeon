@@ -30,7 +30,7 @@ namespace Dungen
         private KeyboardState mprevious;
         private float lastX;
         private float lastY;
-        private string equalsState;
+        private string equalsState = "Down";
         private string state;
 
         public GameEngine()
@@ -43,8 +43,8 @@ namespace Dungen
             string[] menuItems = { "Start Game", "High Scores", "End Game" };
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-         //   font = Content.Load<SpriteFont>("Font/font");
-      //      menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
+            //   font = Content.Load<SpriteFont>("Font/font");
+            //      menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
             Components.Add(menuComponent);
             magics = new List<IDrawMagic>();
             myMage = new Mage("Misho");

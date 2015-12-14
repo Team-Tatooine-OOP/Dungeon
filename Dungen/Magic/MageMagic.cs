@@ -12,8 +12,6 @@ namespace Dungen.Magic
 
     public class MageMagic : DrawMagic
     {
-        private int row;
-        private int currentFrame;
         private Texture2D magicType;
 
         public MageMagic(int x, int y, Texture2D magicType, string statePosition)
@@ -38,9 +36,8 @@ namespace Dungen.Magic
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            int width = 64;
-            int height = 64;
-            int column = currentFrame % 4;
+            int width = 75;
+            int height = 75;
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle(this.X, this.Y, width, height);
             spriteBatch.Draw(this.magicType, destinationRectangle, sourceRectangle, Color.White);
