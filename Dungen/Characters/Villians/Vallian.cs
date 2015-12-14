@@ -1,4 +1,6 @@
-﻿namespace Dungen.Characters.Villians
+﻿using OopProject.Characters;
+
+namespace Dungen.Characters.Villians
 {
     using System;
 
@@ -44,11 +46,7 @@
             return new Vector2(x, y);
         }
 
-
-        public override void UnloadContent()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public override void LoadContent(ContentManager content)
         {

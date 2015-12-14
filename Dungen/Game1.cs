@@ -43,8 +43,8 @@ namespace Dungen
             string[] menuItems = { "Start Game", "High Scores", "End Game" };
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-         //   font = Content.Load<SpriteFont>("Font/font");
-      //      menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
+           // font = Content.Load<SpriteFont>("Font/font");
+          //  menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
             Components.Add(menuComponent);
             magics = new List<IDrawMagic>();
             myMage = new Mage("Misho");
@@ -94,7 +94,7 @@ namespace Dungen
 
 
             myMage.Draw(spriteBatch);
-            //}
+            
             base.Draw(gameTime);
             spriteBatch.End();
         }

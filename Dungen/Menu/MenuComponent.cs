@@ -33,7 +33,7 @@ namespace Dungen.Menu
             this.spriteBatch = spriteBatch;
             this.spriteFont = spriteFont;
             this.menuItems = menuItems;
-            menuBackground = content.Load<Texture2D>("TextureAtlases/MenuBackground");
+           // menuBackground = content.Load<Texture2D>("TextureAtlases/MenuBackground");
             MeasureMenu();
         }
 
