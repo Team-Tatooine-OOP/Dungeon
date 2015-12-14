@@ -2,27 +2,54 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Dungen.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using IDrawable = OopProject.Interfaces.IDrawable;
+using OopProject.Interfaces;
+
 namespace Dungen.Magic
 {
-    abstract class DrawMagic:IDrawable
+    public abstract class DrawMagic : IDrawMagic
     {
-        public void LoadContent(ContentManager content)
+        private int x;
+        private int y;
+        private int currentFrame;
+
+
+        protected DrawMagic()
         {
-            throw new NotImplementedException();
         }
 
-        public void Update(GameTime gametime)
+        protected DrawMagic(int x, int y)
         {
-            throw new NotImplementedException();
+            this.X = x;
+            this.Y = y;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public int X
         {
-            throw new NotImplementedException();
+            get
+            {
+                return x;
+            }
+
+            set
+            {
+                x = value;
+            }
         }
+
+        public int Y
+        {
+            get { return this.y; }
+            set { this.y = value; }
+        }
+
+        public abstract void LoadContent(ContentManager content);
+
+        public abstract void Update(GameTime gametime);
+
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

@@ -1,21 +1,25 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using OopProject.Characters.GoodGuys;
+﻿using OopProject.Characters;
 
-namespace OopProject.Characters.Villians
+namespace Dungen.Characters.Villians
 {
+    using System;
+
+    using Dungen.Characters;
+
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
     class Vallian : DrawCharacter
     {
         private const int Health = 200;
         private const int Mana = 300;
         private static int randomNumber = 0;
+
         public Vallian(string name, Texture2D texture2D, int x, int y)
             : base(name)
         {
         }
-
 
         public static Vector2 NewPos(Vector2 vector) // get random position for x or y to move for  second
         {
@@ -43,10 +47,10 @@ namespace OopProject.Characters.Villians
         }
 
 
-        public override void UnloadContent()
-        {
-            throw new NotImplementedException();
-        }
+        //public override void UnloadContent()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public override void LoadContent(ContentManager content)
         {
@@ -83,8 +87,8 @@ namespace OopProject.Characters.Villians
                     y += 3;
                     break;
             }
+
             return new Vector2(x, y);
         }
-
     }
 }

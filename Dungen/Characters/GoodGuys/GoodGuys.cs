@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dungen.Interfaces;
+using Dungen.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OopProject.Interfaces;
 
 namespace OopProject.Characters.GoodGuys
 {
     public abstract class GoodGuys : DrawCharacter, IMovable
     {
-
         private int row;
         private int endCol;
         private int currentFrame;
-        private Vector2 movingVector2;
-
+        public Vector2 movingVector2;
+        public Texture2D currentCharacter;
+        protected Texture2D magicType;
         public int Health { get; set; }
-
         public int Mana { get; set; }
-        protected Texture2D currentCharacter;
-        public int X { get; set; }
-        public int Y { get; set; }
-
+        protected GoodGuys(string name)
+            : base(name)
+        {
+        }
         public override void Update(GameTime gameTime)
         {
             Moving();
         }
-        protected GoodGuys(string name)
-            : base(name)
-        {
 
-        }
 
         public void Moving()
         {
@@ -55,10 +49,7 @@ namespace OopProject.Characters.GoodGuys
             }
         }
 
-        public override void UnloadContent()
-        {
-            throw new System.NotImplementedException();
-        }
+     //   public abstract void Attack(MageMagic magic);
 
         public override void Draw(SpriteBatch spriteBatch)
         {

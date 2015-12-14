@@ -52,3 +52,14 @@
 /processorParam:TextureFormat=Color
 /build:TextureAtlases/MenuBackground.jpg
 
+#begin TextureAtlases/Fire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:TextureAtlases/Fire.png
+

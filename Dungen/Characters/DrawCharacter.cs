@@ -4,16 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using OopProject;
-
-using IDrawable = OopProject.Interfaces.IDrawable;
+using OopProject.Interfaces;
 
 namespace OopProject.Characters
 {
-    public abstract class DrawCharacter : IDrawable
+    public abstract class DrawCharacter : ICharacter
     {
         private string name;
-
-
+        
         public string Name
         {
             get
@@ -30,9 +28,7 @@ namespace OopProject.Characters
                 name = value;
             }
         }
-
-        public abstract void UnloadContent();
-
+        
         protected DrawCharacter(string name)
         {
             this.name = name;

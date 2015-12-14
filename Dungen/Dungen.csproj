@@ -46,7 +46,8 @@
     <Compile Include="Characters\Villians\Vallian.cs" />
     <Compile Include="Enumerations\MenuOptions.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="Interfaces\ICharacter.cs" />
+    <Compile Include="Interfaces\IDrawMagic.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Magic\DrawMagic.cs" />
     <Compile Include="Magic\MageMagic.cs" />
