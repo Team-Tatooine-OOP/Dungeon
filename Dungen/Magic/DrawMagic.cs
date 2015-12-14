@@ -68,15 +68,15 @@ namespace Dungen.Magic
             }
             else if (state == "Up")
             {
-                Y += 5;
+                this.Y += 5;
             }
             else if (state == "Right")
             {
-                X += 5;
+                this.X += 5;
             }
             else if (state == "Left")
             {
-                X -= 5;
+                this.X -= 5;
             }
 
         }

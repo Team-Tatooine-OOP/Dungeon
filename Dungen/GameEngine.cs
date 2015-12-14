@@ -30,6 +30,8 @@ namespace Dungen
         private KeyboardState mprevious;
         private float lastX;
         private float lastY;
+        private string equalsState;
+        private string state;
 
         public GameEngine()
         {
@@ -99,23 +101,36 @@ namespace Dungen
 
         private string CharacterState(float x, float y)
         {
+
+            if (x == lastX && y == lastY)
+            {
+                state = equalsState;
+            }
             if (x != lastX)
             {
                 if (x > lastX)
                 {
-                    return "Right";
+                    state = "Right";
                 }
-                return "Left";
+                else
+                {
+                    state = "Left";
+                }
             }
             if (y != lastY)
             {
                 if (y > lastY)
                 {
-                    return "Up";
+                    state = "Up";
+                }
+                else
+                {
+                    state = "Down";
+
                 }
             }
-            return "Down";
-
+            equalsState = state;
+            return state;
         }
 
         public void UpdateBullet(GameTime gameTime, string state)
