@@ -1,6 +1,4 @@
-﻿using OopProject.Characters;
-
-namespace Dungen.Characters.Villians
+﻿namespace Dungen.Characters.Villians
 {
     using System;
 
@@ -47,10 +45,10 @@ namespace Dungen.Characters.Villians
         }
 
 
-        //public override void UnloadContent()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override void UnloadContent()
+        {
+            throw new NotImplementedException();
+        }
 
         public override void LoadContent(ContentManager content)
         {
