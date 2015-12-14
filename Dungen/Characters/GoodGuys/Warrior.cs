@@ -1,12 +1,9 @@
-﻿namespace Dungen.Characters.GoodGuys
+﻿using System;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace OopProject.Characters.GoodGuys
 {
-<<<<<<< HEAD
-=======
-    using System;
-
-    using Microsoft.Xna.Framework.Content;
-
->>>>>>> origin/master
     class Warrior : GoodGuys
     {
         private const int Health = 200;
@@ -17,6 +14,7 @@
         public Warrior(string name)
                : base(name)
         {
+
         }
 
        

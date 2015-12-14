@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-<<<<<<< HEAD
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,12 +48,5 @@ namespace Dungen.Magic
             Rectangle destinationRectangle = new Rectangle(this.X, this.Y, width, height);
             spriteBatch.Draw(this.magicType, destinationRectangle, sourceRectangle, Color.White);
         }
-=======
-
-namespace Dungen.Magic
-{
-    class MageMagic
-    {
->>>>>>> origin/master
     }
 }
