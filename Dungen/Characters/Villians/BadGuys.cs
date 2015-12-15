@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dungen.Interfaces;
 using Dungen.Magic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Threading;
+using System.Timers;
 
 namespace OopProject.Characters.Villians
 {
@@ -24,13 +27,33 @@ namespace OopProject.Characters.Villians
 
         public int Y { get; set; }
 
-        private int speed = 3;
+        private int speed = 2;
 
         public Texture2D Texture { get; set; }//
         protected BadGuys(string name)
             : base(name)
         {
         }
+
+
+
+        public int Speed
+        {
+            get { return speed; }
+            set
+            {
+                if (value < 0)
+                {
+                    speed = 0;
+                }
+                else
+                {
+                    speed = value;
+                }
+
+            }
+        }
+
 
 
 
@@ -48,6 +71,13 @@ namespace OopProject.Characters.Villians
         public override void Update(GameTime gameTime)
         {
             MonsterMove();
+            if (DateTime.Now.Second % 2 == 0)
+            {
+                //Timer
+                RandomMovement();
+            }
+
+
         }
 
 
@@ -60,7 +90,7 @@ namespace OopProject.Characters.Villians
                 direction = 1;
             }
 
-            if (X == 600)
+            if (X >= 600)
             {
                 direction = -1;
             }
@@ -69,12 +99,22 @@ namespace OopProject.Characters.Villians
             {
                 X -= speed;
             }
-            if (X == 0)
+            if (X <= 0)
             {
                 direction = +1;
+
             }
         }
 
+       
+
+        private void RandomMovement()
+        {
+
+            Random random = new Random();
+            int output = random.Next(2, 6);
+            Speed = output;
+        }
         //  public void Moving()
         //  {
         //      KeyboardState newState = Keyboard.GetState();
