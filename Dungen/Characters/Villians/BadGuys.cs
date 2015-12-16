@@ -71,7 +71,7 @@ namespace OopProject.Characters.Villians
         public override void Update(GameTime gameTime)
         {
             MonsterMove();
-            if (DateTime.Now.Second % 2 == 0)
+            if (DateTime.Now.Second % 3 == 0)
             {
                 //Timer
                 RandomMovement();
