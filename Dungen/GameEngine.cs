@@ -21,7 +21,9 @@ namespace Dungen
         //private Texture2D bot;
         //private Texture2D villian; // Initialize field for villian image
         //private Texture2D warrior; // Initialize field for warrior image
-        private Texture2D background; // Initialize field for warrior image
+        private Texture2D pixel; // Initialize field for warrior image
+        private Texture2D background;
+        private Texture2D background2;
         private GoodGuys myMage;
         private List<IDrawMagic> magics;
         private DrawMagic myMagic;
@@ -32,6 +34,10 @@ namespace Dungen
         private float lastY;
         private string equalsState = "Down";
         private string state;
+
+        int mAlphaValue = 255;
+        int mFadeIncrement = 2;
+        double mFadeDelay = .035;
 
         public GameEngine()
         {
@@ -50,7 +56,9 @@ namespace Dungen
             myMage = new Mage("Misho");
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
             myMage.LoadContent(Content);
-            background = Content.Load<Texture2D>("TextureAtlases/amarati");
+            pixel = Content.Load<Texture2D>("TextureAtlases/blackPixel");
+            background = Content.Load<Texture2D>("TextureAtlases/Backround1");
+            background2 = Content.Load<Texture2D>("TextureAtlases/Backround2");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             myMagic = new MageMagic(magicType);
             myMagic.LoadContent(Content);
@@ -75,6 +83,18 @@ namespace Dungen
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             string lastState = CharacterState(myMage.movingVector2.X, myMage.movingVector2.Y);
             UpdateBullet(gameTime, lastState);
+
+            mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (mFadeDelay <= 0)
+            {
+                mFadeDelay = .035;
+                mAlphaValue -= mFadeIncrement;
+                if (mAlphaValue <= 0)
+                {
+                    mFadeIncrement *= -1;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -85,7 +105,19 @@ namespace Dungen
             spriteBatch.Begin();
             if (menuComponent.IsPlayed == true)
             {
-                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
+                this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.1f); //IMPORTANT! First draw background
+
+                spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
+                    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+
+                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
+
+                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480), Color.Black);
+
+                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
+                //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+
+                //spriteBatch.Draw(background2, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
 
                 foreach (var drawMagic in magics)
                 {
