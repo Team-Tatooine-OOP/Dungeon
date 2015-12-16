@@ -46,7 +46,7 @@ namespace Dungen.Menu
             MeasureMenu();
         }
 
-       
+        public int SelectedIndexCharacter { get { return this.selectedIndexCharacter; } }
         public bool IsPlayed
         {
             get { return this.isPlayed; }
