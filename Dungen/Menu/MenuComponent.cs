@@ -1,5 +1,4 @@
-﻿using Dungen.Enumerations;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,11 +7,14 @@ namespace Dungen.Menu
 {
     public class MenuComponent : DrawableGameComponent
     {
-        private MenuOptions option;
         private bool isPlayed = false;
         private string[] menuItems;
-        private int selectedIndex;
+        private int selectedIndexContent;
+        private int selectedIndexCharacter;
         private Texture2D menuBackground;
+        private Texture2D[] charactersInTheMenu = new Texture2D[3];
+        private Texture2D[] rightButtons = new Texture2D[2];
+        private Texture2D[] leftButtons = new Texture2D[2];
 
         private Color normal = Color.White;
         private Color hilite = Color.OrangeRed;
@@ -33,26 +35,18 @@ namespace Dungen.Menu
             this.spriteBatch = spriteBatch;
             this.spriteFont = spriteFont;
             this.menuItems = menuItems;
-           // menuBackground = content.Load<Texture2D>("TextureAtlases/MenuBackground");
+            menuBackground = content.Load<Texture2D>("TextureAtlases/BackroundMenu");
+            charactersInTheMenu[0] = content.Load<Texture2D>("MenuCharacters/hero1");
+            charactersInTheMenu[1] = content.Load<Texture2D>("MenuCharacters/hero2");
+            charactersInTheMenu[2] = content.Load<Texture2D>("MenuCharacters/hero3");
+            rightButtons[0] = content.Load<Texture2D>("Buttons/rigt1");
+            rightButtons[1] = content.Load<Texture2D>("Buttons/right2");
+            leftButtons[0] = content.Load<Texture2D>("Buttons/left1");
+            leftButtons[1] = content.Load<Texture2D>("Buttons/left2");
             MeasureMenu();
         }
 
-        public int SelectedIndex
-        {
-            get { return this.selectedIndex; }
-            set
-            {
-                if (selectedIndex < 0)
-                {
-                    selectedIndex = 0;
-                }
-                if (selectedIndex >= menuItems.Length)
-                {
-                    selectedIndex = menuItems.Length - 1;
-                }
-            }
-        }
-
+       
         public bool IsPlayed
         {
             get { return this.isPlayed; }
@@ -86,23 +80,39 @@ namespace Dungen.Menu
             keyboardState = Keyboard.GetState();
             if (CheckKey(Keys.Down) )
             {
-                selectedIndex++;
-                if (selectedIndex == menuItems.Length)
+                selectedIndexContent++;
+                if (selectedIndexContent == menuItems.Length)
                 {
-                    selectedIndex = 0;
+                    selectedIndexContent = 0;
                 }
             }
             if (CheckKey(Keys.Up))
             {
-                selectedIndex--;
-                if (selectedIndex < 0)
+                selectedIndexContent--;
+                if (selectedIndexContent < 0)
                 {
-                    selectedIndex = menuItems.Length - 1;
+                    selectedIndexContent = menuItems.Length - 1;
+                }
+            }
+            if (CheckKey(Keys.Right))
+            {
+                selectedIndexCharacter++;
+                if (selectedIndexCharacter == charactersInTheMenu.Length)
+                {
+                    selectedIndexCharacter = 0;
+                }
+            }
+            if (CheckKey(Keys.Left))
+            {
+                selectedIndexCharacter--;
+                if (selectedIndexCharacter < 0)
+                {
+                    selectedIndexCharacter = charactersInTheMenu.Length - 1;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
-                switch (selectedIndex)
+                switch (selectedIndexContent)
                 {
                     case 0:
                         IsPlayed = true;
@@ -123,7 +133,7 @@ namespace Dungen.Menu
             spriteBatch.Draw(menuBackground, new Rectangle(0, 0, 800, 480), Color.White);
             for (int i = 0; i < menuItems.Length; i++)
             {
-                if (i == selectedIndex)
+                if (i == selectedIndexContent)
                 {
                     tint = hilite;
                 }
@@ -134,6 +144,9 @@ namespace Dungen.Menu
                 spriteBatch.DrawString(spriteFont,menuItems[i],location,tint);
                 location.Y += spriteFont.LineSpacing;
             }
+            spriteBatch.Draw(charactersInTheMenu[selectedIndexCharacter], new Rectangle(480, 100, 150, 300), Color.White);
+            spriteBatch.Draw(leftButtons[0], new Rectangle(420, 230, 40, 40), Color.White);
+            spriteBatch.Draw(rightButtons[0], new Rectangle(650, 230, 40, 40), Color.White);
             spriteBatch.End();
         }
     }

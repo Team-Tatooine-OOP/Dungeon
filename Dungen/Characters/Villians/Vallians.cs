@@ -16,9 +16,6 @@ namespace OopProject.Characters.Villians
         {
         }
 
-
-
-
         public override void LoadContent(ContentManager content)
         {
             throw new NotImplementedException();

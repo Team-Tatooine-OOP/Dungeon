@@ -43,8 +43,8 @@ namespace Dungen
             string[] menuItems = { "Start Game", "High Scores", "End Game" };
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //   font = Content.Load<SpriteFont>("Font/font");
-            //      menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
+            font = Content.Load<SpriteFont>("Font/font");
+            menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
             Components.Add(menuComponent);
             magics = new List<IDrawMagic>();
             myMage = new Mage("Misho");
@@ -83,18 +83,18 @@ namespace Dungen
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            //if (menuComponent.IsPlayed == true)
-            //{
-            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
-
-            foreach (var drawMagic in magics)
+            if (menuComponent.IsPlayed == true)
             {
-                drawMagic.Draw(spriteBatch);
+                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
+
+                foreach (var drawMagic in magics)
+                {
+                    drawMagic.Draw(spriteBatch);
+                }
+
+
+                myMage.Draw(spriteBatch);
             }
-
-
-            myMage.Draw(spriteBatch);
-            //}
             base.Draw(gameTime);
             spriteBatch.End();
         }

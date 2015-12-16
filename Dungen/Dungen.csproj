@@ -78,11 +78,6 @@
     <Folder Include="Content\TextureAtlases\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Font\Sprite.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\Font\font.spritefont">
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
