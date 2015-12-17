@@ -46,12 +46,14 @@ namespace Dungen.Menu
             MeasureMenu();
         }
 
-        public int SelectedIndexCharacter { get { return this.selectedIndexCharacter; } }
+
         public bool IsPlayed
         {
             get { return this.isPlayed; }
             set { this.isPlayed = value; }
         }
+        public int SelectedIndexCharacter { get { return this.selectedIndexCharacter; } }
+
         private void MeasureMenu()
         {
             height = 0;
@@ -123,6 +125,7 @@ namespace Dungen.Menu
             oldKeyboardState = keyboardState;
         }
 
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
@@ -149,5 +152,6 @@ namespace Dungen.Menu
             spriteBatch.Draw(rightButtons[0], new Rectangle(650, 230, 40, 40), Color.White);
             spriteBatch.End();
         }
+
     }
 }

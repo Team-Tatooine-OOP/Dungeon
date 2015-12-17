@@ -13,10 +13,10 @@ namespace Dungen
 {
     public class GameEngine : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Texture2D magicType;
-        private MenuComponent menuComponent;
         private SpriteFont font;
         //private Texture2D bot;
         //private Texture2D villian; // Initialize field for villian image
@@ -24,7 +24,7 @@ namespace Dungen
         private Texture2D pixel; // Initialize field for warrior image
         private Texture2D background;
         private Texture2D background2;
-        private GoodGuys myMage;
+        private GoodGuys mainCharacter;
         private List<IDrawMagic> magics;
         private DrawMagic myMagic;
         private float timeSinceLastChange = 0f; //for counting the seconds
@@ -32,9 +32,10 @@ namespace Dungen
         private KeyboardState mprevious;
         private float lastX;
         private float lastY;
+        private GameTime _gameTime;
         private string equalsState = "Down";
         private string state;
-
+        private int charState = 2;
         int mAlphaValue = 255;
         int mFadeIncrement = 2;
         double mFadeDelay = .035;
@@ -46,22 +47,15 @@ namespace Dungen
         }
         protected override void LoadContent()
         {
-            string[] menuItems = { "Start Game", "High Scores", "End Game" };
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font/font");
-            menuComponent = new MenuComponent(this,spriteBatch, font, menuItems, Content);
-            Components.Add(menuComponent);
             magics = new List<IDrawMagic>();
-            myMage = new Mage("Misho");
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
-            myMage.LoadContent(Content);
             pixel = Content.Load<Texture2D>("TextureAtlases/blackPixel");
             background = Content.Load<Texture2D>("TextureAtlases/Backround1");
             background2 = Content.Load<Texture2D>("TextureAtlases/Backround2");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
-            myMagic = new MageMagic(magicType);
-            myMagic.LoadContent(Content);
 
         }
 
@@ -77,59 +71,79 @@ namespace Dungen
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                  || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            lastX = myMage.movingVector2.X;
-            lastY = myMage.movingVector2.Y;
-            myMage.Update(gameTime);
+            lastX = mainCharacter.movingVector2.X;
+            lastY = mainCharacter.movingVector2.Y;
+            mainCharacter.Update(gameTime);
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
-            string lastState = CharacterState(myMage.movingVector2.X, myMage.movingVector2.Y);
+            string lastState = CharacterState(mainCharacter.movingVector2.X, mainCharacter.movingVector2.Y);
             UpdateBullet(gameTime, lastState);
-
-            mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-            if (mFadeDelay <= 0)
-            {
-                mFadeDelay = .035;
-                mAlphaValue -= mFadeIncrement;
-                if (mAlphaValue <= 0)
-                {
-                    mFadeIncrement *= -1;
-                }
-            }
+            //mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
+            //if (mFadeDelay <= 0)
+            //{
+            //    mFadeDelay = .035;
+            //    mAlphaValue -= mFadeIncrement;
+            //    if (mAlphaValue <= 0)
+            //    {
+            //        mFadeIncrement *= -1;
+            //    }
+            //}
 
             base.Update(gameTime);
         }
 
 
-
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            if (menuComponent.IsPlayed == true)
+            //if (menuComponent.IsPlayed == true)
+            //{
+            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
+
+            spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
+                new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+
+            //spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
+
+            //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480), Color.Black);
+
+            //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
+            //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+
+            //spriteBatch.Draw(background2, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
+
+            foreach (var drawMagic in magics)
             {
-                this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.1f); //IMPORTANT! First draw background
-
-                spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-                    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
-
-                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
-
-                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480), Color.Black);
-
-                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-                //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
-
-                //spriteBatch.Draw(background2, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
-
-                foreach (var drawMagic in magics)
-                {
-                    drawMagic.Draw(spriteBatch);
-                }
-
-
-                myMage.Draw(spriteBatch);
+                drawMagic.Draw(spriteBatch);
             }
+
+
+            mainCharacter.Draw(spriteBatch);
+
+
             base.Draw(gameTime);
             spriteBatch.End();
         }
+        private void MainCharacter(int characterNum)
+        {
+            switch (characterNum)
+            {
+                case 0:
+                    mainCharacter = new Mage("Misho");
+
+                    break;
+                case 1:
+                    mainCharacter = new Tank("Simeon");
+                    break;
+                case 2:
+                    mainCharacter = new Warrior("Pavlina");
+                    break;
+                default:
+                    throw new NotImplementedException("No such a character");
+
+            }
+            mainCharacter.LoadContent(Content);
+        }
+
 
         private string CharacterState(float x, float y)
         {
@@ -174,7 +188,7 @@ namespace Dungen
             }
             if (fireState.IsKeyDown(Keys.Space) && mprevious.IsKeyDown(Keys.Space) == false)
             {
-                myMagic = new MageMagic((int)myMage.movingVector2.X, (int)myMage.movingVector2.Y, magicType, state);
+                myMagic = new MageMagic((int)mainCharacter.movingVector2.X, (int)mainCharacter.movingVector2.Y, magicType, state);
                 magics.Add(myMagic);
             }
             mprevious = fireState;

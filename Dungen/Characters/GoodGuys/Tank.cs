@@ -16,7 +16,8 @@ namespace OopProject.Characters.GoodGuys
 
         public override void LoadContent(ContentManager content)
         {
-            throw new NotImplementedException();
+
+            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/Mage");
         }
     }
 }
