@@ -57,7 +57,7 @@ namespace Dungen
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
             myMage.LoadContent(Content);
             pixel = Content.Load<Texture2D>("TextureAtlases/blackPixel");
-            background = Content.Load<Texture2D>("TextureAtlases/Backround1");
+            background = Content.Load<Texture2D>("TextureAtlases/Backround3");
             background2 = Content.Load<Texture2D>("TextureAtlases/Backround2");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
             myMagic = new MageMagic(magicType);
@@ -107,10 +107,10 @@ namespace Dungen
             {
                 this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.1f); //IMPORTANT! First draw background
 
-                spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-                    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
+                //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
 
-                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
+                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
 
                 //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480), Color.Black);
 
