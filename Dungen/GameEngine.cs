@@ -39,15 +39,19 @@ namespace Dungen
         int mAlphaValue = 255;
         int mFadeIncrement = 2;
         double mFadeDelay = .035;
+        private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
+        private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
 
         public GameEngine()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
+
         protected override void LoadContent()
         {
-
+            mainCharacter = new Mage("Misho");
+            mainCharacter.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font/font");
             magics = new List<IDrawMagic>();
@@ -69,7 +73,7 @@ namespace Dungen
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
-                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             lastX = mainCharacter.movingVector2.X;
             lastY = mainCharacter.movingVector2.Y;
@@ -77,16 +81,6 @@ namespace Dungen
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             string lastState = CharacterState(mainCharacter.movingVector2.X, mainCharacter.movingVector2.Y);
             UpdateBullet(gameTime, lastState);
-            //mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;
-            //if (mFadeDelay <= 0)
-            //{
-            //    mFadeDelay = .035;
-            //    mAlphaValue -= mFadeIncrement;
-            //    if (mAlphaValue <= 0)
-            //    {
-            //        mFadeIncrement *= -1;
-            //    }
-            //}
 
             base.Update(gameTime);
         }
@@ -97,39 +91,29 @@ namespace Dungen
             spriteBatch.Begin();
             //if (menuComponent.IsPlayed == true)
             //{
-            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White); //IMPORTANT! First draw background
+            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+            //IMPORTANT! First draw background
 
-<<<<<<< HEAD
+
             spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
                 new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
 
-            //spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
-=======
-                //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-                //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
+            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
 
-                spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
->>>>>>> origin/master
-
-            //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480), Color.Black);
-
-            //spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-            //    new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
-
-            //spriteBatch.Draw(background2, new Rectangle(0, 0, 800, 480), Color.White * 0.03f);
 
             foreach (var drawMagic in magics)
             {
                 drawMagic.Draw(spriteBatch);
             }
 
-
+           
             mainCharacter.Draw(spriteBatch);
 
 
             base.Draw(gameTime);
             spriteBatch.End();
         }
+
         private void MainCharacter(int characterNum)
         {
             switch (characterNum)
@@ -192,13 +176,31 @@ namespace Dungen
             foreach (var drawMagic in magics)
             {
                 drawMagic.Update(gameTime);
+
             }
+
             if (fireState.IsKeyDown(Keys.Space) && mprevious.IsKeyDown(Keys.Space) == false)
             {
-                myMagic = new MageMagic((int)mainCharacter.movingVector2.X, (int)mainCharacter.movingVector2.Y, magicType, state);
+                myMagic = new MageMagic((int)mainCharacter.movingVector2.X, (int)mainCharacter.movingVector2.Y,
+                    magicType, state);
                 magics.Add(myMagic);
             }
             mprevious = fireState;
+        }
+
+        private bool CheckOutOFScreen(int currX, int currY)
+        {
+            bool isOut = false;
+
+            if (currX < 0 || currX > width)
+            {
+                isOut = true;
+            }
+            if (currY > height || currY < 0)
+            {
+                isOut = true;
+            }
+            return isOut;
         }
     }
 }

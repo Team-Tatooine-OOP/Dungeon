@@ -12,8 +12,6 @@ namespace Dungen.Magic
 {
     public abstract class DrawMagic : IDrawMagic
     {
-        private int x;
-        private int y;
         private int currentFrame;
         protected string StatePosition;
         protected int column;// = 3;
@@ -32,24 +30,9 @@ namespace Dungen.Magic
 
         }
 
-        public int X
-        {
-            get
-            {
-                return x;
-            }
+        public int X { get; set; }
 
-            set
-            {
-                x = value;
-            }
-        }
-
-        public int Y
-        {
-            get { return this.y; }
-            set { this.y = value; }
-        }
+        public int Y { get; set; }
 
         public abstract void LoadContent(ContentManager content);
 
@@ -72,7 +55,7 @@ namespace Dungen.Magic
             else if (state == "Up")
             {
                 this.Y += 5;
-                
+
             }
             else if (state == "Right")
             {

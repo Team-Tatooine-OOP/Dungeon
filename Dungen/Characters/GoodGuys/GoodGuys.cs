@@ -18,6 +18,10 @@ namespace OopProject.Characters.GoodGuys
         protected Texture2D magicType;
         public int Health { get; set; }
         public int Mana { get; set; }
+        private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
+        private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
+
+
         protected GoodGuys(string name)
             : base(name)
         {
@@ -31,6 +35,8 @@ namespace OopProject.Characters.GoodGuys
         public void Moving()
         {
             KeyboardState newState = Keyboard.GetState();
+            int prevPosY = (int)movingVector2.Y;
+            int prevPosX = (int)movingVector2.X;
             if (newState.IsKeyDown(Keys.Left))
             {
                 movingVector2.X -= 3;
@@ -47,9 +53,23 @@ namespace OopProject.Characters.GoodGuys
             {
                 movingVector2.Y += 3;
             }
+
+            CheckOutOFScreen(prevPosY, prevPosX);
         }
 
-     //   public abstract void Attack(MageMagic magic);
+        private void CheckOutOFScreen(int prevPosY, int prevPosX)
+        {
+            if (movingVector2.X < 0 || movingVector2.X > width)
+            {
+                movingVector2.X = prevPosX;
+            }
+            if (movingVector2.Y > height || movingVector2.Y < 0)
+            {
+                movingVector2.Y = prevPosY;
+            }
+        }
+
+        //   public abstract void Attack(MageMagic magic);
 
         public override void Draw(SpriteBatch spriteBatch)
         {

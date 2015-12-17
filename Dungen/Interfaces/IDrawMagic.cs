@@ -10,6 +10,8 @@ namespace Dungen.Interfaces
 {
     public interface IDrawMagic
     {
+        int X { get; }
+        int Y { get; }
         void LoadContent(ContentManager content);
 
         void Update(GameTime gametime);
