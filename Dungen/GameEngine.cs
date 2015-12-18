@@ -38,6 +38,7 @@ namespace Dungen
         private int charState = 2;
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
+        
 
         public GameEngine()
         {
@@ -65,6 +66,7 @@ namespace Dungen
 
         protected override void Update(GameTime gameTime)
         {
+            
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();

@@ -3,6 +3,8 @@ using OopProject;
 
 namespace Dungen
 {
+    using Dungen.Intro;
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
@@ -15,6 +17,9 @@ namespace Dungen
         [STAThread]
         static void Main()
         {
+            GameIntro gameIntro = new GameIntro();
+            gameIntro.Run();
+
             using (var game = new GameEngine())
                 game.Run();
         }
