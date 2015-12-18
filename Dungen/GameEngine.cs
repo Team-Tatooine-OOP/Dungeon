@@ -11,6 +11,8 @@ using OopProject.Characters.GoodGuys;
 
 namespace Dungen
 {
+    using Dungen.Intro;
+
     public class GameEngine : Game
     {
 
@@ -21,9 +23,7 @@ namespace Dungen
         //private Texture2D bot;
         //private Texture2D villian; // Initialize field for villian image
         //private Texture2D warrior; // Initialize field for warrior image
-        private Texture2D pixel; // Initialize field for warrior image
         private Texture2D background;
-        private Texture2D background2;
         private GoodGuys mainCharacter;
         private List<IDrawMagic> magics;
         private DrawMagic myMagic;
@@ -36,9 +36,6 @@ namespace Dungen
         private string equalsState = "Down";
         private string state;
         private int charState = 2;
-        int mAlphaValue = 255;
-        int mFadeIncrement = 2;
-        double mFadeDelay = .035;
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
 
@@ -56,17 +53,13 @@ namespace Dungen
             font = Content.Load<SpriteFont>("Font/font");
             magics = new List<IDrawMagic>();
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
-            pixel = Content.Load<Texture2D>("TextureAtlases/blackPixel");
             background = Content.Load<Texture2D>("TextureAtlases/Backround3");
-            background2 = Content.Load<Texture2D>("TextureAtlases/Backround2");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
-
         }
 
 
         protected override void UnloadContent()
         {
-
         }
 
 
@@ -90,25 +83,16 @@ namespace Dungen
         {
             spriteBatch.Begin();
             //if (menuComponent.IsPlayed == true)
-            //{
+
             this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
             //IMPORTANT! First draw background
-
-
-            spriteBatch.Draw(pixel, new Rectangle(0, 0, 800, 480),
-                new Color(255, 255, 255, (byte)MathHelper.Clamp(mAlphaValue, 0, 255)));
-
-            spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
-
 
             foreach (var drawMagic in magics)
             {
                 drawMagic.Draw(spriteBatch);
             }
 
-           
             mainCharacter.Draw(spriteBatch);
-
 
             base.Draw(gameTime);
             spriteBatch.End();
@@ -126,11 +110,10 @@ namespace Dungen
                     mainCharacter = new Tank("Simeon");
                     break;
                 case 2:
-                    mainCharacter = new Warrior("Pavlina");
+                    mainCharacter = new Warrior("Pavleta");
                     break;
                 default:
                     throw new NotImplementedException("No such a character");
-
             }
             mainCharacter.LoadContent(Content);
         }
