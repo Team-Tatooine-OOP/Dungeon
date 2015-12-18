@@ -116,11 +116,11 @@ namespace OopProject.Characters.Villians
             Speed = output;
             if (output > 4)
             {
-                this.Y -= 3;
+                this.Y -= 4;
             }
             else
             {
-                this.Y += 3;
+                this.Y += 4;
             }
 
         }
