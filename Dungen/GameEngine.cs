@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Dungen.Characters.GoodGuys;
 using Dungen.Interfaces;
 using Dungen.Magic;
 using Dungen.Menu;
+using Dungen.Models;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OopProject.Characters.GoodGuys;
@@ -38,7 +41,7 @@ namespace Dungen
         private int charState = 2;
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
-        
+        private Brick[,] bricks;
 
         public GameEngine()
         {
@@ -48,6 +51,8 @@ namespace Dungen
 
         protected override void LoadContent()
         {
+            bricks = new Brick[770, 450];
+            Bricks(bricks, Content);
             mainCharacter = new Mage("Misho");
             mainCharacter.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -56,17 +61,12 @@ namespace Dungen
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
             background = Content.Load<Texture2D>("TextureAtlases/Backround3");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
+
         }
-
-
-        protected override void UnloadContent()
-        {
-        }
-
 
         protected override void Update(GameTime gameTime)
         {
-            
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -86,18 +86,63 @@ namespace Dungen
             spriteBatch.Begin();
             //if (menuComponent.IsPlayed == true)
 
-            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
+            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 450), Color.White);
             //IMPORTANT! First draw background
-
+            BrickDraw(bricks);
             foreach (var drawMagic in magics)
             {
                 drawMagic.Draw(spriteBatch);
+            }
+            for (int i = 0; i < magics.Count; i++)
+            {
+                if (CheckOutOFScreen(magics[i].X, magics[i].Y))
+                {
+                    magics.Remove(magics[i]);
+                }
             }
 
             mainCharacter.Draw(spriteBatch);
 
             base.Draw(gameTime);
             spriteBatch.End();
+        }
+
+        private void BrickDraw(Brick[,] bricks1)
+        {
+            for (int row = 0; row < bricks1.GetLength(0); row++)
+            {
+                for (int col = 0; col < bricks1.GetLength(1); col++)
+                {
+                    if (bricks1[row, col] != null)
+                    {
+                        bricks1[row, col].Draw(spriteBatch);
+                    }
+                }
+            }
+        }
+
+        private void Bricks(Brick[,] bricks1, ContentManager content)
+        {
+            for (int row = 0; row < bricks1.GetLength(0); row++)
+            {
+                for (int col = 0; col < bricks1.GetLength(1); col++)
+                {
+                    if (row == 0 || row == bricks1.GetLength(0) - 1 )
+                    {
+                        bricks1[row, col] = new Brick(row , col * 20);
+
+                    }
+                    if (col == 0 || col == bricks1.GetLength(1) - 1 && row <= 27)
+                    {
+                        bricks1[row, col] = new Brick(row * 30, col);
+                    }
+                    if (bricks1[row, col] != null)
+                    {
+                        bricks1[row, col].LoadContent(content);
+
+                    }
+                }
+            }
         }
 
         private void MainCharacter(int characterNum)

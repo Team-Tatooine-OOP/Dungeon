@@ -63,6 +63,7 @@
     <Compile Include="Menu\State.cs" />
     <Compile Include="Menu\StateManager.cs" />
     <Compile Include="Menu\GameState.cs" />
+    <Compile Include="Models\Brick.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
