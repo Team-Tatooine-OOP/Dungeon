@@ -64,6 +64,8 @@ namespace Dungen.Characters.Villians
         public override void LoadContent(ContentManager content)
         {
             this.currentCharacter = content.Load<Texture2D>("TextureAtlases/SmileyWalk");
+            //this.currentCharacter = content.Load<Texture2D>("TextureAtlases/warrior");
+
             animatedSprite = new AnimatedSprite(this.currentCharacter, 4, 4);
         }
 
