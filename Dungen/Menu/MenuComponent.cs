@@ -7,7 +7,7 @@ namespace Dungen.Menu
 {
     public class MenuComponent : DrawableGameComponent
     {
-        private bool isPlayed = false;
+        private bool isPlayed;
         private string[] menuItems;
         private int selectedIndexContent;
         private int selectedIndexCharacter;
@@ -43,6 +43,7 @@ namespace Dungen.Menu
             rightButtons[1] = content.Load<Texture2D>("Buttons/right2");
             leftButtons[0] = content.Load<Texture2D>("Buttons/left1");
             leftButtons[1] = content.Load<Texture2D>("Buttons/left2");
+            IsPlayed = false;
             MeasureMenu();
         }
 
@@ -131,26 +132,30 @@ namespace Dungen.Menu
             base.Draw(gameTime);
             Vector2 location = position;
             Color tint;
-            spriteBatch.Begin();
-
-            spriteBatch.Draw(menuBackground, new Rectangle(0, 0, 800, 480), Color.White);
-            for (int i = 0; i < menuItems.Length; i++)
+            if (isPlayed == false)
             {
-                if (i == selectedIndexContent)
+                spriteBatch.Begin();
+
+                spriteBatch.Draw(menuBackground, new Rectangle(0, 0, 800, 480), Color.White);
+                for (int i = 0; i < menuItems.Length; i++)
                 {
-                    tint = hilite;
+                    if (i == selectedIndexContent)
+                    {
+                        tint = hilite;
+                    }
+                    else
+                    {
+                        tint = normal;
+                    }
+                    spriteBatch.DrawString(spriteFont, menuItems[i], location, tint);
+                    location.Y += spriteFont.LineSpacing;
                 }
-                else
-                {
-                    tint = normal;
-                }
-                spriteBatch.DrawString(spriteFont,menuItems[i],location,tint);
-                location.Y += spriteFont.LineSpacing;
+                spriteBatch.Draw(charactersInTheMenu[selectedIndexCharacter], new Rectangle(480, 100, 150, 300), Color.White);
+                spriteBatch.Draw(leftButtons[0], new Rectangle(420, 230, 40, 40), Color.White);
+                spriteBatch.Draw(rightButtons[0], new Rectangle(650, 230, 40, 40), Color.White);
+                spriteBatch.End();
             }
-            spriteBatch.Draw(charactersInTheMenu[selectedIndexCharacter], new Rectangle(480, 100, 150, 300), Color.White);
-            spriteBatch.Draw(leftButtons[0], new Rectangle(420, 230, 40, 40), Color.White);
-            spriteBatch.Draw(rightButtons[0], new Rectangle(650, 230, 40, 40), Color.White);
-            spriteBatch.End();
+            
         }
 
     }

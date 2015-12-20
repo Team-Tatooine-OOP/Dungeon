@@ -23,9 +23,7 @@ namespace Dungen
         SpriteBatch spriteBatch;
         private Texture2D magicType;
         private SpriteFont font;
-        //private Texture2D bot;
-        //private Texture2D villian; // Initialize field for villian image
-        //private Texture2D warrior; // Initialize field for warrior image
+        private MenuComponent menuComponent;
         private Texture2D background;
         private GoodGuys mainCharacter;
         private List<IDrawMagic> magics;
@@ -38,6 +36,7 @@ namespace Dungen
         private GameTime _gameTime;
         private string equalsState = "Down";
         private string state;
+        private string[] menuItems;
         private int charState = 2;
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
@@ -46,6 +45,7 @@ namespace Dungen
         public GameEngine()
         {
             graphics = new GraphicsDeviceManager(this);
+            menuItems = new []{ "Start Game", "High Scores", "End Game" };
             Content.RootDirectory = "Content";
         }
 
@@ -61,7 +61,8 @@ namespace Dungen
             magicType = Content.Load<Texture2D>("TextureAtlases/Fire");
             background = Content.Load<Texture2D>("TextureAtlases/Backround3");
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            menuComponent = new MenuComponent(this, spriteBatch, font, menuItems, Content);
+            Components.Add(menuComponent);
         }
 
         protected override void Update(GameTime gameTime)
@@ -84,27 +85,25 @@ namespace Dungen
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            //if (menuComponent.IsPlayed == true)
-
-            this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 450), Color.White);
-            //IMPORTANT! First draw background
-            BrickDraw(bricks);
-            foreach (var drawMagic in magics)
+            if (menuComponent.IsPlayed)
             {
-                drawMagic.Draw(spriteBatch);
-            }
-            for (int i = 0; i < magics.Count; i++)
-            {
-                if (CheckOutOFScreen(magics[i].X, magics[i].Y))
+                this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 450), Color.White);//IMPORTANT! First draw background
+                BrickDraw(bricks);
+                foreach (var drawMagic in magics)
                 {
-                    magics.Remove(magics[i]);
+                    drawMagic.Draw(spriteBatch);
                 }
+                for (int i = 0; i < magics.Count; i++)
+                {
+                    if (CheckOutOFScreen(magics[i].X, magics[i].Y))
+                    {
+                        magics.Remove(magics[i]);
+                    }
+                }
+                mainCharacter.Draw(spriteBatch);
             }
-
-            mainCharacter.Draw(spriteBatch);
-
-            base.Draw(gameTime);
             spriteBatch.End();
+            base.Draw(gameTime);
         }
 
         private void BrickDraw(Brick[,] bricks1)
@@ -143,6 +142,7 @@ namespace Dungen
                     }
                 }
             }
+            Console.WriteLine();
         }
 
         private void MainCharacter(int characterNum)
@@ -164,8 +164,7 @@ namespace Dungen
             }
             mainCharacter.LoadContent(Content);
         }
-
-
+        
         private string CharacterState(float x, float y)
         {
 
