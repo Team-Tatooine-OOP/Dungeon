@@ -20,7 +20,7 @@ namespace OopProject.Characters.GoodGuys
         public int Mana { get; set; }
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
-
+        internal Rectangle sourceRectangle;
 
         protected GoodGuys(string name)
             : base(name)
@@ -76,7 +76,7 @@ namespace OopProject.Characters.GoodGuys
             int width = 64;
             int height = 64;
             int column = currentFrame % 4;
-            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)movingVector2.X, (int)movingVector2.Y, width, height);
             spriteBatch.Draw(currentCharacter, destinationRectangle, sourceRectangle, Color.White);
         }

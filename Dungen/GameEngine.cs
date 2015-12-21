@@ -73,6 +73,7 @@ namespace Dungen
             lastX = mainCharacter.movingVector2.X;
             lastY = mainCharacter.movingVector2.Y;
             mainCharacter.Update(gameTime);
+            IntersectRectangel(mainCharacter, bricks);
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             string lastState = CharacterState(mainCharacter.movingVector2.X, mainCharacter.movingVector2.Y);
             UpdateBullet(gameTime, lastState);
@@ -80,6 +81,26 @@ namespace Dungen
             base.Update(gameTime);
         }
 
+        private void IntersectRectangel(GoodGuys goodGuys, Brick[,] bricks1)
+        {
+            int currX = (int)goodGuys.movingVector2.X;
+            int currY = (int)goodGuys.movingVector2.Y;
+            for (int row = 0; row < bricks1.GetLength(0); row++)
+            {
+                for (int col = 0; col < bricks1.GetLength(1); col++)
+                {
+                    if (bricks1[row, col] != null)
+                    {
+                        if (bricks1[row, col].X <= goodGuys.movingVector2.X)
+                        {
+                            goodGuys.movingVector2.X = currX;
+                            goodGuys.movingVector2.Y = currY;
+                        }
+                    }
+
+                }
+            }
+        }
 
         protected override void Draw(GameTime gameTime)
         {
@@ -127,9 +148,9 @@ namespace Dungen
             {
                 for (int col = 0; col < bricks1.GetLength(1); col++)
                 {
-                    if (row == 0 || row == bricks1.GetLength(0) - 1 )
+                    if (row == 0 || row == bricks1.GetLength(0) - 1)
                     {
-                        bricks1[row, col] = new Brick(row , col * 20);
+                        bricks1[row, col] = new Brick(row, col * 20);
 
                     }
                     if (col == 0 || col == bricks1.GetLength(1) - 1 && row <= 27)
@@ -164,7 +185,6 @@ namespace Dungen
             }
             mainCharacter.LoadContent(Content);
         }
-
 
         private string CharacterState(float x, float y)
         {

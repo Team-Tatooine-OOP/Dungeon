@@ -13,6 +13,7 @@ namespace Dungen.Models
         private int x;
         private int y;
         private Texture2D texture2D;
+        internal Rectangle rectangle;
         public Brick(int x, int y)
         {
             this.X = x;
@@ -26,7 +27,9 @@ namespace Dungen.Models
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //rectangle = new Rectangle(X, Y, this.texture2D.Width, this.texture2D.Height);
             spriteBatch.Draw(texture2D, new Vector2((float)this.X, (float)this.Y), Color.White);
+
         }
 
         public int X
