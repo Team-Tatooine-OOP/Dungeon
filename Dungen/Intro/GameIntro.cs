@@ -42,10 +42,6 @@ namespace Dungen.Intro
             intro2 = Content.Load<Texture2D>("TextureAtlases/Backround2");
         }
 
-        protected override void UnloadContent()
-        {
-        }
-
         protected override void Update(GameTime gameTime)
         {
             mFadeDelay -= gameTime.ElapsedGameTime.TotalSeconds;

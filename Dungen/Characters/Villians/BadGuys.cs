@@ -14,13 +14,21 @@ namespace OopProject.Characters.Villians
     public abstract class BadGuys : DrawCharacter
     {
         private int row;
+
         private int endCol;
+
         private int currentFrame;
+
         private int totalFrames; //
+
         public Vector2 movingVector2;
+
         public Texture2D currentCharacter;
+
         protected Texture2D magicType;
+
         public int Health { get; set; }
+
         public int Mana { get; set; }
 
         public int X { get; set; }
@@ -30,6 +38,7 @@ namespace OopProject.Characters.Villians
         private int speed = 2;
 
         public Texture2D Texture { get; set; }//
+
         protected BadGuys(string name)
             : base(name)
         {

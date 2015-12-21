@@ -11,7 +11,7 @@ namespace Dungen.Characters.Villians
     public class Monster1 : OopProject.Characters.Villians.BadGuys
     {
         private const int Health = 50;
-        private const int Mana = 300;
+        private const int Mana = 10;
         private AnimatedSprite animatedSprite;
 
         /*
@@ -63,8 +63,8 @@ namespace Dungen.Characters.Villians
 
         public override void LoadContent(ContentManager content)
         {
-            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/SmileyWalk");
-            //this.currentCharacter = content.Load<Texture2D>("TextureAtlases/warrior");
+           // this.currentCharacter = content.Load<Texture2D>("TextureAtlases/SmileyWalk");
+            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/warrior");
 
             animatedSprite = new AnimatedSprite(this.currentCharacter, 4, 4);
         }
