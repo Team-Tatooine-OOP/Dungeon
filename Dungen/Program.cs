@@ -17,8 +17,8 @@ namespace Dungen
         [STAThread]
         static void Main()
         {
-            GameIntro gameIntro = new GameIntro();
-            gameIntro.Run();
+            //GameIntro gameIntro = new GameIntro();
+            //gameIntro.Run();
 
             using (var game = new GameEngine())
                 game.Run();

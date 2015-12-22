@@ -27,8 +27,8 @@ namespace Dungen.Models
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //rectangle = new Rectangle(X, Y, this.texture2D.Width, this.texture2D.Height);
-            spriteBatch.Draw(texture2D, new Vector2((float)this.X, (float)this.Y), Color.White);
+            rectangle = new Rectangle(X, Y, this.texture2D.Width, this.texture2D.Height);
+            spriteBatch.Draw(texture2D, rectangle, Color.White);
 
         }
 

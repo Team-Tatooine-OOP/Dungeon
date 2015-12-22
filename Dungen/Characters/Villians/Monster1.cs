@@ -15,23 +15,20 @@ namespace Dungen.Characters.Villians
         private AnimatedSprite animatedSprite;
 
         /*
-        //public class Game1 : Game
+        public class Game1 : Game
 
         BadGuys monster; //monster
         private AnimatedSprite animatedSprite; //monster
 
 
-       //LoadContent
-       monster = new Monster1("Some"); //monster
-       monster.LoadContent(Content); //monster
-       Texture2D texture = Content.Load<Texture2D>("TextureAtlases/SmileyWalk"); //monster
-       animatedSprite = new AnimatedSprite(texture, 4, 4); //monster
+       LoadContent
+      
 
-       //Update
+       Update
        animatedSprite.Update();//monster
        monster.Update(gameTime); //monster
 
-       //Draw
+       Draw
        animatedSprite.Draw(spriteBatch, new Vector2(monster.X, monster.Y)); //monster
 
     */
@@ -55,18 +52,13 @@ namespace Dungen.Characters.Villians
 
         }
 
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
 
         public override void LoadContent(ContentManager content)
         {
-           // this.currentCharacter = content.Load<Texture2D>("TextureAtlases/SmileyWalk");
-            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/warrior");
+            // this.currentCharacter = content.Load<Texture2D>("TextureAtlases/SmileyWalk");
+            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/Mage");
 
-            animatedSprite = new AnimatedSprite(this.currentCharacter, 4, 4);
+            
         }
 
 

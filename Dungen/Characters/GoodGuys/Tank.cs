@@ -17,7 +17,7 @@ namespace OopProject.Characters.GoodGuys
         public override void LoadContent(ContentManager content)
         {
 
-            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/Mage");
+            this.currentCharacter = content.Load<Texture2D>("TextureAtlases/Brick");
         }
     }
 }

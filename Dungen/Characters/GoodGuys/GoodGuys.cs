@@ -18,13 +18,55 @@ namespace OopProject.Characters.GoodGuys
         protected Texture2D magicType;
         public int Health { get; set; }
         public int Mana { get; set; }
+
+        public int Row
+        {
+            get
+            {
+                return row;
+            }
+
+            set
+            {
+                row = value;
+            }
+        }
+
+        public int EndCol
+        {
+            get
+            {
+                return endCol;
+            }
+
+            set
+            {
+                endCol = value;
+            }
+        }
+
+        public int CurrentFrame
+        {
+            get
+            {
+                return currentFrame;
+            }
+
+            set
+            {
+                currentFrame = value;
+            }
+        }
+
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
+        internal Rectangle destinationRectangle;
         internal Rectangle sourceRectangle;
-
+        public KeyboardState newState;
         protected GoodGuys(string name)
             : base(name)
         {
+            movingVector2 = new Vector2(100, 200);
         }
         public override void Update(GameTime gameTime)
         {
@@ -34,7 +76,7 @@ namespace OopProject.Characters.GoodGuys
 
         public void Moving()
         {
-            KeyboardState newState = Keyboard.GetState();
+            newState = Keyboard.GetState();
             int prevPosY = (int)movingVector2.Y;
             int prevPosX = (int)movingVector2.X;
             if (newState.IsKeyDown(Keys.Left))
@@ -75,9 +117,9 @@ namespace OopProject.Characters.GoodGuys
         {
             int width = 64;
             int height = 64;
-            int column = currentFrame % 4;
-            sourceRectangle = new Rectangle(width * column, height * row, width, height);
-            Rectangle destinationRectangle = new Rectangle((int)movingVector2.X, (int)movingVector2.Y, width, height);
+            int column = CurrentFrame % 4;
+            sourceRectangle = new Rectangle(width * column, height * Row, width, height);
+            destinationRectangle = new Rectangle((int)movingVector2.X, (int)movingVector2.Y, width, height);
             spriteBatch.Draw(currentCharacter, destinationRectangle, sourceRectangle, Color.White);
         }
     }

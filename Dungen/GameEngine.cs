@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Dungen.Characters.GoodGuys;
+using Dungen.Characters.Villians;
 using Dungen.Interfaces;
 using Dungen.Magic;
 using Dungen.Menu;
@@ -11,10 +12,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OopProject.Characters.GoodGuys;
+using OopProject.Characters.Villians;
 
 namespace Dungen
 {
-    using Dungen.Intro;
+    // using Dungen.Intro;
 
     public class GameEngine : Game
     {
@@ -41,16 +43,24 @@ namespace Dungen
         private int height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2 + 25;
         private int width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2 + 45;
         private Brick[,] bricks;
-
+        private int currIndex = 1;
+        private bool isCharSelected = true;
+        private bool isIntersect = true;
+        BadGuys monster; //monster
+        private AnimatedSprite animatedSprite; //monster
         public GameEngine()
         {
             graphics = new GraphicsDeviceManager(this);
-            menuItems = new []{ "Start Game", "High Scores", "End Game" };
+            menuItems = new[] { "Start Game", "High Scores", "End Game" };
             Content.RootDirectory = "Content";
         }
 
         protected override void LoadContent()
         {
+            monster = new Monster1("Some"); //monster
+            monster.LoadContent(Content); //monster
+            Texture2D texture = Content.Load<Texture2D>("TextureAtlases/Mage"); //monster
+            animatedSprite = new AnimatedSprite(texture, 4, 4); //monster
             bricks = new Brick[770, 450];
             Bricks(bricks, Content);
             mainCharacter = new Mage("Misho");
@@ -67,40 +77,55 @@ namespace Dungen
 
         protected override void Update(GameTime gameTime)
         {
-
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             lastX = mainCharacter.movingVector2.X;
             lastY = mainCharacter.movingVector2.Y;
+            menuComponent.Update(gameTime);
+            animatedSprite.Update();//monster
+            monster.Update(gameTime); //monster
+            CharSelection();
             mainCharacter.Update(gameTime);
             IntersectRectangel(mainCharacter, bricks);
             timeSinceLastChange += (float)gameTime.ElapsedGameTime.TotalSeconds; //second
             string lastState = CharacterState(mainCharacter.movingVector2.X, mainCharacter.movingVector2.Y);
             UpdateBullet(gameTime, lastState);
 
+
             base.Update(gameTime);
+        }
+
+        private void CharSelection()
+        {
+            int index = menuComponent.SelectedIndexCharacter;
+
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Enter) && isCharSelected)
+            {
+                MainCharacter(index);
+                isCharSelected = false;
+            }
+
         }
 
         private void IntersectRectangel(GoodGuys goodGuys, Brick[,] bricks1)
         {
-            int currX = (int)goodGuys.movingVector2.X;
-            int currY = (int)goodGuys.movingVector2.Y;
             for (int row = 0; row < bricks1.GetLength(0); row++)
             {
                 for (int col = 0; col < bricks1.GetLength(1); col++)
                 {
                     if (bricks1[row, col] != null)
                     {
-                        if (bricks1[row, col].X <= goodGuys.movingVector2.X)
-                        {
-                            goodGuys.movingVector2.X = currX;
-                            goodGuys.movingVector2.Y = currY;
-                        }
+                        //if (goodGuys.destinationRectangle.X > bricks1[row, col].rectangle.X)
+                        //{
+                        //    goodGuys.movingVector2.X = lastX;
+                        //    goodGuys.movingVector2.Y = lastY;
+                        //}
                     }
-
                 }
             }
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -110,6 +135,7 @@ namespace Dungen
             {
                 this.spriteBatch.Draw(background, new Rectangle(0, 0, 800, 450), Color.White);//IMPORTANT! First draw background
                 BrickDraw(bricks);
+                animatedSprite.Draw(spriteBatch, new Vector2(monster.X, monster.Y)); //monster
                 foreach (var drawMagic in magics)
                 {
                     drawMagic.Draw(spriteBatch);
@@ -143,25 +169,10 @@ namespace Dungen
 
         private void Bricks(Brick[,] bricks1, ContentManager content)
         {
+            Brick some = new Brick(10, 20);
             for (int row = 0; row < bricks1.GetLength(0); row++)
             {
-                for (int col = 0; col < bricks1.GetLength(1); col++)
-                {
-                    if (row == 0 || row == bricks1.GetLength(0) - 1)
-                    {
-                        bricks1[row, col] = new Brick(row, col * 20);
 
-                    }
-                    if (col == 0 || col == bricks1.GetLength(1) - 1 && row <= 27)
-                    {
-                        bricks1[row, col] = new Brick(row * 30, col);
-                    }
-                    if (bricks1[row, col] != null)
-                    {
-                        bricks1[row, col].LoadContent(content);
-
-                    }
-                }
             }
             Console.WriteLine();
         }
@@ -172,24 +183,22 @@ namespace Dungen
             {
                 case 0:
                     mainCharacter = new Mage("Misho");
-
+                    currIndex = 0;
                     break;
                 case 1:
                     mainCharacter = new Tank("Simeon");
+                    currIndex = 1;
                     break;
                 case 2:
                     mainCharacter = new Warrior("Pavleta");
+                    currIndex = 2;
                     break;
                 default:
                     throw new NotImplementedException("No such a character");
             }
             mainCharacter.LoadContent(Content);
         }
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> origin/master
         private string CharacterState(float x, float y)
         {
 

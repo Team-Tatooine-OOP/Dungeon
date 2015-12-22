@@ -21,6 +21,8 @@ namespace OopProject.Characters.Villians
 
         private int totalFrames; //
 
+        private int direction = 0; //direction of moving +1 right, -1 left, 0 hold
+
         public Vector2 movingVector2;
 
         public Texture2D currentCharacter;
@@ -44,8 +46,6 @@ namespace OopProject.Characters.Villians
         {
         }
 
-
-
         public int Speed
         {
             get { return speed; }
@@ -63,9 +63,6 @@ namespace OopProject.Characters.Villians
             }
         }
 
-
-
-
         public int Rows
         {
             get { return row; }
@@ -77,6 +74,7 @@ namespace OopProject.Characters.Villians
             get { return endCol; }
             set { endCol = value; }
         }
+
         public override void Update(GameTime gameTime)
         {
             MonsterMove();
@@ -90,7 +88,6 @@ namespace OopProject.Characters.Villians
         }
 
 
-        int direction = 0; //direction of moving +1 right, -1 left, 0 hold
         public void MonsterMove()
         {
             if (X <= 600 && this.direction >= 0)
